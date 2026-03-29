@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #fafafa;
+  color: #222;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+
+.tagline {
+  opacity: 0.7;
+  margin-top: 1px;
+}
+
+/* TABS */
+.tabs {
+  margin-bottom: 1px;
+  margin-top: 30px;
+}
+
+
+.tab {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-weight: 800;
+  background: none;
+  border: none;
+  margin: 0 10px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  font-size: 1.5rem;
+  margin-top: 1px;
+}
+
+.tab.active {
+  border-color: #000;
+}
+
+/* MAIN */
+main {
+  padding: 40px 6vw;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.film-card {
+  background: #fff;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.film-title {
+  font-family: 'Mogra', system-ui;
+  margin-bottom: 8px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.line {
+  margin: 16px 0;
+}
+
+/* FONT CLASSES */
+.leckerli { font-family: 'Leckerli One', cursive; }
+.pacifico { font-family: 'Pacifico', cursive; }
+.ubuntu { font-family: 'Ubuntu Sans', sans-serif; }
+.montserrat { font-family: 'Montserrat', sans-serif; }
+
+/* ADD PAGE */
+.add-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.collect-title {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-weight: 400;
+}
+
+.movie-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-form input,
+.movie-form textarea,
+.movie-form select {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.movie-form textarea {
+  min-height: 80px;
+}
+
+.movie-form button {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #000;
+  color: #fff;
+  font-family: 'Ubuntu Sans', sans-serif;
+}
