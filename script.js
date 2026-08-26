@@ -9,13 +9,33 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
+
+// ================================
+// STORAGE
+// ================================
+
+// Load saved films from localStorage
+let films = JSON.parse(localStorage.getItem('filmoFilms')) || [];
+
+
+// Save films to localStorage
+function saveFilms() {
+  localStorage.setItem('filmoFilms', JSON.stringify(films));
+}
+
+
+// ================================
 // LIVE PREVIEW
-filmName.oninput = e => pFilm.innerText = e.target.value || 'Film Name';
+// ================================
+
+filmName.oninput = e =>
+  pFilm.innerText = e.target.value || 'Film Name';
 
 watchCount.oninput = e =>
   pCount.innerText = `🎬 Watch Count: ${e.target.value || 0}`;
 
-emoji.oninput = e => pEmoji.innerText = e.target.value;
+emoji.oninput = e =>
+  pEmoji.innerText = e.target.value;
 
 favoriteLine.oninput = e =>
   pLine.innerText = e.target.value || 'a line that stayed with you…';
@@ -29,25 +49,83 @@ ost.oninput = e =>
 remind.oninput = e =>
   pRemind.innerHTML = `<strong>Reminds me of:</strong> ${e.target.value || '—'}`;
 
-// ADD CARD TO EXPLORE
-addCard.onclick = () => {
-  if (!filmName.value) return;
+
+// ================================
+// CREATE FILM CARD
+// ================================
+
+function createFilmCard(film) {
 
   const card = document.createElement('div');
   card.className = 'film-card';
 
   card.innerHTML = `
-    <h3 class="film-title">${filmName.value}</h3>
+    <h3 class="film-title">${film.title}</h3>
+
     <div class="meta">
-      <span>🎬 ${watchCount.value || 0}</span>
-      <span>${emoji.value}</span>
+      <span>🎬 ${film.watchCount}</span>
+      <span>${film.emoji}</span>
     </div>
-    <p class="line ${lineFont.value}">${favoriteLine.value || ''}</p>
+
+    <p class="line ${film.font}">
+      ${film.quote || ''}
+    </p>
+
     <ul class="details">
-      <li><strong>Favorite OST:</strong> ${ost.value || '—'}</li>
-      <li><strong>Reminds me of:</strong> ${remind.value || '—'}</li>
+      <li>
+        <strong>Favorite OST:</strong> ${film.ost || '—'}
+      </li>
+
+      <li>
+        <strong>Reminds me of:</strong> ${film.remindsMeOf || '—'}
+      </li>
     </ul>
   `;
 
   cardGrid.prepend(card);
+}
+
+
+// ================================
+// LOAD SAVED FILMS
+// ================================
+
+films.forEach(film => {
+  createFilmCard(film);
+});
+
+
+// ================================
+// ADD CARD TO EXPLORE
+// ================================
+
+addCard.onclick = () => {
+
+  // Don't add a film without a title
+  if (!filmName.value) return;
+
+
+  // Create a film object
+  const film = {
+    title: filmName.value,
+    watchCount: watchCount.value || 0,
+    emoji: emoji.value,
+    quote: favoriteLine.value || '',
+    font: lineFont.value,
+    ost: ost.value || '',
+    remindsMeOf: remind.value || '',
+    dateAdded: new Date().toISOString()
+  };
+
+
+  // Add the film to our films array
+  films.push(film);
+
+
+  // Save the updated array to localStorage
+  saveFilms();
+
+
+  // Create and display the card
+  createFilmCard(film);
 };
