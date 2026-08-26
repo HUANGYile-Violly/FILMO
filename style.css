@@ -1,91 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Movie Mood - FILMO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-</head>
-<body>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Montserrat', sans-serif; background: #fafafa; color: #222; }
 
-<header>
-  <h1 id="siteTitle">Movie Mood</h1>
-  <p class="tagline">Collecting movie feelings, one moment at a time.</p>
-  
-  <div class="trending-section">
-    <div class="slider-viewport">
-      <div class="slider-track" id="sliderTrack"></div>
-    </div>
-    <div class="slider-dots" id="sliderDots"></div>
-  </div>
+header { text-align: center; padding: 40px 20px 10px; }
+/* 强制 Pacifico 字体 */
+h1 { font-family: 'Pacifico', cursive !important; font-size: 3.5rem; margin-bottom: 5px; }
+.tagline { opacity: 0.7; margin-top: 1px; }
 
-  <div class="tabs">
-    <button class="tab active" data-tab="explore">Explore</button>
-    <button class="tab" data-tab="add">Add One / Yours</button>
-  </div>
-</header>
+/* 轮播样式 */
+.trending-section { max-width: 300px; margin: 0 auto 15px; position: relative; }
+.slider-viewport { overflow: hidden; width: 100%; border-radius: 14px; }
+.slider-track { display: flex; transition: transform 0.5s ease-in-out; }
+.slider-track .film-card { min-width: 100%; transform: scale(0.8); pointer-events: none; margin: 0; }
+.slider-dots { display: flex; justify-content: center; gap: 5px; margin-top: -5px; }
+.dot { width: 6px; height: 6px; background: #ddd; border-radius: 50%; cursor: pointer; }
+.dot.active { background: #555; }
 
-<main>
-  <section id="explore" class="tab-content active">
-    <div class="card-grid" id="cardGrid">
-      <p id="loadingText" style="text-align:center; padding:50px; color:#999;">Loading memories...</p>
-    </div>
-  </section>
+/* TABS */
+.tab { font-family: 'Ubuntu Sans', sans-serif; font-weight: 800; background: none; border: none; margin: 0 10px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 1.5rem; color: #ccc; }
+.tab.active { border-color: #000; color: #000; }
 
-  <section id="add" class="tab-content">
-    <div class="add-layout">
-      <form class="movie-form" id="movieForm">
-        <h2 class="collect-title">Collect ur Filmo</h2>
-        <input id="userName" placeholder="who are you? (nickname)" />
-        <input id="filmName" placeholder="a movie you're thinking of..." />
-        <input id="watchCount" type="number" placeholder="how many times?" />
-        
-        <!-- 这里留空，JS 会自动注入 Emoji -->
-        <select id="emoji"></select>
+main { padding: 40px 6vw; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-        <textarea id="favoriteLine" placeholder="a line that stayed with you..."></textarea>
-        <select id="lineFont">
-          <option value="leckerli">Leckerli One</option>
-          <option value="pacifico">Pacifico</option>
-          <option value="ubuntu">Ubuntu Sans</option>
-          <option value="montserrat">Montserrat</option>
-        </select>
+/* CARDS */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+.film-card { background: #fff; padding: 22px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: left; }
+.card-header-info { font-size: 0.7rem; color: #bbb; margin-bottom: 10px; }
+.card-header-info .sep { margin: 0 5px; color: #eee; } /* 分隔符样式 */
+.film-title { font-family: 'Mogra', system-ui; margin-bottom: 8px; }
 
-        <input id="ost" placeholder="a song from the film..." />
-        <input id="thoughts" placeholder="your thoughts about this film..." />
-        <button type="button" id="addCard">add to explore</button>
-      </form>
+.meta { display: flex; justify-content: space-between; align-items: center; }
+.mood-emoji { font-size: 1.4rem !important; }
 
-      <div class="preview-wrapper">
-        <h2 class="collect-title">Live Preview</h2>
-        <div class="film-card preview" id="previewCard">
-          <div class="card-header-info">
-             <span id="pUser">stranger</span> <span class="sep">/</span> <span id="pDate"></span>
-          </div>
-          <h3 class="film-title" id="pFilm">Film Name</h3>
-          <div class="meta">
-            <span id="pCount">count: 0</span>
-            <span id="pEmoji" class="mood-emoji"></span>
-          </div>
-          <p class="line leckerli" id="pLine">a line that stayed with you...</p>
-          <ul class="details">
-            <li id="pOst"><strong>Favorite OST:</strong> -</li>
-            <li id="pThoughts"><strong>Thoughts:</strong> -</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
+.line { margin: 16px 0; min-height: 40px; }
+.details { list-style: none; padding: 0; border-top: 1px dashed #eee; margin-top: 15px; padding-top: 15px; font-size: 0.85rem; }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="script.js"></script>
-</body>
-</html>
+/* 字体类 */
+.leckerli { font-family: 'Leckerli One', cursive; }
+.pacifico { font-family: 'Pacifico', cursive; }
+.ubuntu { font-family: 'Ubuntu Sans', sans-serif; }
+.montserrat { font-family: 'Montserrat', sans-serif; }
+
+/* 2 栏布局 */
+.add-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.movie-form input, .movie-form textarea, .movie-form select { 
+  width: 100%; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 10px; margin-bottom: 14px; 
+}
+#addCard { padding: 12px; border: none; border-radius: 10px; cursor: pointer; background: #000; color: #fff; font-weight: 800; }
+.save-btn { background: none; border: 1px solid #eee; color: #ccc; font-size: 10px; padding: 4px 8px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+.like-btn { cursor: pointer; background: none; border: none; color: #ddd; }
+.like-btn.liked { color: #e74c3c; }
