@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Movie Mood</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Fonts -->
+  <meta charset="UTF-8">
+  <title>Movie Mood - FILMO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
 <header>
-  <h1>Movie Mood</h1>
+  <h1 id="siteTitle">Movie Mood</h1>
   <p class="tagline">Collecting movie feelings, one moment at a time.</p>
+  
+  <div class="trending-section">
+    <div class="slider-viewport">
+      <div class="slider-track" id="sliderTrack"></div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
   <div class="tabs">
     <button class="tab active" data-tab="explore">Explore</button>
     <button class="tab" data-tab="add">Add One / Yours</button>
@@ -20,49 +33,51 @@
 </header>
 
 <main>
-  <!-- EXPLORE SECTION -->
   <section id="explore" class="tab-content active">
     <div class="card-grid" id="cardGrid">
-      <p id="loadingText" style="text-align:center; padding:50px; color:#999; grid-column: 1/-1;">Loading your memories...</p>
+      <p id="loadingText" style="text-align:center; padding:50px; color:#999;">Loading memories...</p>
     </div>
   </section>
 
-  <!-- ADD SECTION -->
   <section id="add" class="tab-content">
     <div class="add-layout">
-      <!-- FORM -->
       <form class="movie-form" id="movieForm">
-        <h2>Collect ur Filmo</h2>
-        <input id="filmName" type="text" placeholder="a movie you’re thinking of…" />
+        <h2 class="collect-title">Collect ur Filmo</h2>
+        <input id="userName" placeholder="who are you? (nickname)" />
+        <input id="filmName" placeholder="a movie you're thinking of..." />
         <input id="watchCount" type="number" placeholder="how many times?" />
-        <select id="emoji">
-          <option>🙂</option><option>😀</option><option>😌</option><option>🥹</option><option>🥲</option><option>😭</option><option>😔</option><option>😐</option><option>😶</option><option>🙃</option><option>😵‍💫</option><option>🤍</option><option>💛</option><option>🖤</option><option>✨</option>
-        </select>
-        <textarea id="favoriteLine" placeholder="a line that stayed with you…"></textarea>
+        
+        <!-- 这里留空，JS 会自动注入 Emoji -->
+        <select id="emoji"></select>
+
+        <textarea id="favoriteLine" placeholder="a line that stayed with you..."></textarea>
         <select id="lineFont">
           <option value="leckerli">Leckerli One</option>
           <option value="pacifico">Pacifico</option>
           <option value="ubuntu">Ubuntu Sans</option>
           <option value="montserrat">Montserrat</option>
         </select>
-        <input id="ost" type="text" placeholder="a song from the film…" />
-        <input id="remind" type="text" placeholder="it reminds you of…" />
+
+        <input id="ost" placeholder="a song from the film..." />
+        <input id="thoughts" placeholder="your thoughts about this film..." />
         <button type="button" id="addCard">add to explore</button>
       </form>
 
-      <!-- LIVE PREVIEW -->
       <div class="preview-wrapper">
-        <h2>Live Preview</h2>
-        <div class="film-card preview">
+        <h2 class="collect-title">Live Preview</h2>
+        <div class="film-card preview" id="previewCard">
+          <div class="card-header-info">
+             <span id="pUser">stranger</span> <span class="sep">/</span> <span id="pDate"></span>
+          </div>
           <h3 class="film-title" id="pFilm">Film Name</h3>
           <div class="meta">
-            <span id="pCount">🎬 Watch Count: 0</span>
-            <span id="pEmoji">🙂</span>
+            <span id="pCount">count: 0</span>
+            <span id="pEmoji" class="mood-emoji"></span>
           </div>
-          <p class="line leckerli" id="pLine">a line that stayed with you…</p>
-          <ul class="details" style="list-style:none; padding:0; border-top:1px dashed #ccc; margin-top:10px; padding-top:10px; font-size:14px;">
-            <li id="pOst"><strong>Favorite OST:</strong> —</li>
-            <li id="pRemind"><strong>Reminds me of:</strong> —</li>
+          <p class="line leckerli" id="pLine">a line that stayed with you...</p>
+          <ul class="details">
+            <li id="pOst"><strong>Favorite OST:</strong> -</li>
+            <li id="pThoughts"><strong>Thoughts:</strong> -</li>
           </ul>
         </div>
       </div>
@@ -70,9 +85,7 @@
   </section>
 </main>
 
-<!-- Supabase SDK 先加载 -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- 你的脚本后加载 -->
 <script src="script.js"></script>
 </body>
 </html>
