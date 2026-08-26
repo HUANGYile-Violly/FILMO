@@ -8,9 +8,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;500&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;500;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,19 +25,20 @@
 </header>
 
 <main>
-  <!-- EXPLORE 页面：这里是展示云端数据的地方 -->
+  <!-- EXPLORE 页面 -->
   <section id="explore" class="tab-content active">
     <div class="card-grid" id="cardGrid">
-        <!-- 这里会被 JS 动态填入 Supabase 的卡片 -->
+      <!-- Supabase 的卡片会在这里显示 -->
     </div>
   </section>
 
   <!-- ADD ONE 页面 -->
   <section id="add" class="tab-content">
     <div class="add-layout">
+      <!-- 左侧表单 -->
+      <form class="movie-form" id="movieForm">
+        <h2 class="collect-title">Collect ur Filmo</h2>
 
-      <form class="movie-form">
-        <h2>Collect ur Filmo</h2>
         <input id="filmName" placeholder="a movie you’re thinking of…" />
         <input id="watchCount" type="number" placeholder="how many times?" />
 
@@ -65,9 +65,9 @@
         <button type="button" id="addCard">add to explore</button>
       </form>
 
-      <!-- LIVE PREVIEW 预览部分 -->
+      <!-- 右侧预览 -->
       <div class="preview-wrapper">
-        <h2>Live Preview</h2>
+        <h2 class="collect-title">Live Preview</h2>
         <div class="film-card preview">
           <h3 class="film-title" id="pFilm">Film Name</h3>
           <div class="meta">
@@ -75,20 +75,18 @@
             <span id="pEmoji">🙂</span>
           </div>
           <p class="line leckerli" id="pLine">a line that stayed with you…</p>
-          <ul class="details">
+          <ul class="details" style="list-style:none; padding:0; border-top:1px solid #eee; margin-top:10px; padding-top:10px; font-size:0.85rem;">
             <li id="pOst"><strong>Favorite OST:</strong> —</li>
             <li id="pRemind"><strong>Reminds me of:</strong> —</li>
           </ul>
         </div>
       </div>
-
     </div>
   </section>
 </main>
 
-<!-- 引入 Supabase SDK -->
+<!-- 引入 Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- 引入你的 JS -->
 <script src="script.js"></script>
 </body>
 </html>
