@@ -1,94 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Movie Mood</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<form class="movie-form">
+  <h2>Collect ur Filmo</h2>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;500&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
+  <input id="filmName" placeholder="a movie you’re thinking of…" />
+  <input id="watchCount" type="number" placeholder="how many times?" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
-</head>
+  <select id="emoji">
+    <option>🙂</option>
+    <option>😀</option>
+    <option>😌</option>
+    <option>🥹</option>
+    <option>🥲</option>
+    <option>😭</option>
+    <option>😔</option>
+    <option>😐</option>
+    <option>😶</option>
+    <option>🙃</option>
+    <option>😵‍💫</option>
+    <option>🤍</option>
+    <option>💛</option>
+    <option>🖤</option>
+    <option>✨</option>
+  </select>
 
-<body>
-<header>
-  <h1>Movie Mood</h1>
-  <p class="tagline">Collecting movie feelings, one moment at a time.</p>
+  <textarea
+    id="favoriteLine"
+    placeholder="a line that stayed with you…"
+  ></textarea>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="explore">Explore</button>
-    <button class="tab" data-tab="add">Add One / Yours</button>
-  </div>
-</header>
+  <select id="lineFont">
+    <option value="leckerli">Leckerli One</option>
+    <option value="pacifico">Pacifico</option>
+    <option value="ubuntu">Ubuntu Sans</option>
+    <option value="montserrat">Montserrat</option>
+  </select>
 
-<main>
-  <!-- EXPLORE -->
-  <section id="explore" class="tab-content active">
-    <div class="card-grid" id="cardGrid"></div>
-  </section>
+  <input id="ost" placeholder="a song from the film…" />
+  <input id="remind" placeholder="it reminds you of…" />
 
-  <!-- ADD ONE -->
-  <section id="add" class="tab-content">
-    <div class="add-layout">
+  <button type="button" id="addCard">add to explore</button>
+</form>
 
-      <form class="movie-form">
-        <h2>Collect ur Filmo</h2>
 
-        <input id="filmName" placeholder="a movie you’re thinking of…" />
-        <input id="watchCount" type="number" placeholder="how many times?" />
+<!-- LIVE PREVIEW -->
+<div class="preview-wrapper">
+  <h2>Live Preview</h2>
 
-        <select id="emoji">
-          <option>🙂</option><option>😀</option><option>😌</option>
-          <option>🥹</option><option>🥲</option><option>😭</option>
-          <option>😔</option><option>😐</option><option>😶</option>
-          <option>🙃</option><option>😵‍💫</option><option>🤍</option>
-          <option>💛</option><option>🖤</option><option>✨</option>
-        </select>
+  <div class="film-card preview">
 
-        <textarea id="favoriteLine" placeholder="a line that stayed with you…"></textarea>
+    <h3 class="film-title" id="pFilm">
+      Film Name
+    </h3>
 
-        <select id="lineFont">
-          <option value="leckerli">Leckerli One</option>
-          <option value="pacifico">Pacifico</option>
-          <option value="ubuntu">Ubuntu Sans</option>
-          <option value="montserrat">Montserrat</option>
-        </select>
+    <div class="meta">
+      <span id="pCount">
+        🎬 Watch Count: 0
+      </span>
 
-        <input id="ost" placeholder="a song from the film…" />
-        <input id="remind" placeholder="it reminds you of…" />
-
-        <button type="button" id="addCard">add to explore</button>
-      </form>
-
-      <!-- LIVE PREVIEW -->
-      <div class="preview-wrapper">
-        <h2>Live Preview</h2>
-
-        <div class="film-card preview">
-          <h3 class="film-title" id="pFilm">Film Name</h3>
-          <div class="meta">
-            <span id="pCount">🎬 Watch Count: 0</span>
-            <span id="pEmoji">🙂</span>
-          </div>
-          <p class="line leckerli" id="pLine">a line that stayed with you…</p>
-          <ul class="details">
-            <li id="pOst"><strong>Favorite OST:</strong> —</li>
-            <li id="pRemind"><strong>Reminds me of:</strong> —</li>
-          </ul>
-        </div>
-      </div>
-
+      <span id="pEmoji">
+        🙂
+      </span>
     </div>
-  </section>
-</main>
 
-<!-- JS -->
+    <p class="line leckerli" id="pLine">
+      a line that stayed with you…
+    </p>
+
+    <ul class="details">
+
+      <li id="pOst">
+        <strong>Favorite OST:</strong> —
+      </li>
+
+      <li id="pRemind">
+        <strong>Reminds me of:</strong> —
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+
+<!-- ========================================
+     SUPABASE
+     ======================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- FILMO JavaScript -->
 <script src="script.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
-</body>
-</html>
