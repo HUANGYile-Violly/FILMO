@@ -1,6 +1,6 @@
 // 1. 初始化 Supabase
 const SUPABASE_URL = 'https://rjeopfnfuwnzxlcklfne.supabase.co';
-const SUPABASE_KEY = '把你的anon_public_key粘贴到这里'; 
+const SUPABASE_KEY = 'sb_publishable_QvXjWNuroCn5AXGuIv86CQ_i9UraSnh'; 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // 获取 DOM
