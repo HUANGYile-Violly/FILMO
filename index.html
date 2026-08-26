@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <title>Movie Mood</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
+  <!-- 直接引用，不要加 / 或文件夹名 -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,19 +21,19 @@
 </header>
 
 <main>
-  <!-- EXPLORE 页面 -->
+  <!-- EXPLORE SECTION -->
   <section id="explore" class="tab-content active">
     <div class="card-grid" id="cardGrid">
-      <!-- 动态加载卡片 -->
+      <p style="text-align:center; padding:50px; color:#999;">Loading cloud cards...</p>
     </div>
   </section>
 
-  <!-- ADD ONE 页面 -->
+  <!-- ADD SECTION -->
   <section id="add" class="tab-content">
     <div class="add-layout">
       <form class="movie-form" id="movieForm">
         <h2>Collect ur Filmo</h2>
-        <input id="filmName" placeholder="a movie you’re thinking of…" />
+        <input id="filmName" type="text" placeholder="a movie you’re thinking of…" />
         <input id="watchCount" type="number" placeholder="how many times?" />
         <select id="emoji">
           <option>🙂</option><option>😀</option><option>😌</option>
@@ -48,12 +49,12 @@
           <option value="ubuntu">Ubuntu Sans</option>
           <option value="montserrat">Montserrat</option>
         </select>
-        <input id="ost" placeholder="a song from the film…" />
-        <input id="remind" placeholder="it reminds you of…" />
+        <input id="ost" type="text" placeholder="a song from the film…" />
+        <input id="remind" type="text" placeholder="it reminds you of…" />
         <button type="button" id="addCard">add to explore</button>
       </form>
 
-      <!-- LIVE PREVIEW 预览 -->
+      <!-- LIVE PREVIEW -->
       <div class="preview-wrapper">
         <h2>Live Preview</h2>
         <div class="film-card preview">
@@ -63,7 +64,7 @@
             <span id="pEmoji">🙂</span>
           </div>
           <p class="line leckerli" id="pLine">a line that stayed with you…</p>
-          <ul class="details" style="list-style:none; padding:0; border-top:1px dashed #ccc; margin-top:10px; padding-top:10px;">
+          <ul class="details" style="list-style:none; padding:0; border-top:1px dashed #ccc; margin-top:10px; padding-top:10px; font-size:14px;">
             <li id="pOst"><strong>Favorite OST:</strong> —</li>
             <li id="pRemind"><strong>Reminds me of:</strong> —</li>
           </ul>
@@ -73,8 +74,9 @@
   </section>
 </main>
 
-<!-- 先引入 Supabase，再引入 script.js -->
+<!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- 你的 JS -->
 <script src="script.js"></script>
 </body>
 </html>
