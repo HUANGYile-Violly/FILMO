@@ -4,21 +4,15 @@
   <meta charset="UTF-8" />
   <title>Movie Mood</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;500;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
 <header>
   <h1>Movie Mood</h1>
   <p class="tagline">Collecting movie feelings, one moment at a time.</p>
-
   <div class="tabs">
     <button class="tab active" data-tab="explore">Explore</button>
     <button class="tab" data-tab="add">Add One / Yours</button>
@@ -29,21 +23,17 @@
   <!-- EXPLORE 页面 -->
   <section id="explore" class="tab-content active">
     <div class="card-grid" id="cardGrid">
-      <!-- Supabase 的卡片会在这里显示 -->
-      <p style="text-align: center; color: #999; padding: 40px;">Loading your movie moods...</p>
+      <!-- 动态加载卡片 -->
     </div>
   </section>
 
   <!-- ADD ONE 页面 -->
   <section id="add" class="tab-content">
     <div class="add-layout">
-      <!-- 左侧表单 -->
       <form class="movie-form" id="movieForm">
-        <h2 class="collect-title">Collect ur Filmo</h2>
-
+        <h2>Collect ur Filmo</h2>
         <input id="filmName" placeholder="a movie you’re thinking of…" />
         <input id="watchCount" type="number" placeholder="how many times?" />
-
         <select id="emoji">
           <option>🙂</option><option>😀</option><option>😌</option>
           <option>🥹</option><option>🥲</option><option>😭</option>
@@ -51,25 +41,21 @@
           <option>🙃</option><option>😵‍💫</option><option>🤍</option>
           <option>💛</option><option>🖤</option><option>✨</option>
         </select>
-
         <textarea id="favoriteLine" placeholder="a line that stayed with you…"></textarea>
-
         <select id="lineFont">
           <option value="leckerli">Leckerli One</option>
           <option value="pacifico">Pacifico</option>
           <option value="ubuntu">Ubuntu Sans</option>
           <option value="montserrat">Montserrat</option>
         </select>
-
         <input id="ost" placeholder="a song from the film…" />
         <input id="remind" placeholder="it reminds you of…" />
-
         <button type="button" id="addCard">add to explore</button>
       </form>
 
-      <!-- 右侧预览 -->
+      <!-- LIVE PREVIEW 预览 -->
       <div class="preview-wrapper">
-        <h2 class="collect-title">Live Preview</h2>
+        <h2>Live Preview</h2>
         <div class="film-card preview">
           <h3 class="film-title" id="pFilm">Film Name</h3>
           <div class="meta">
@@ -77,7 +63,7 @@
             <span id="pEmoji">🙂</span>
           </div>
           <p class="line leckerli" id="pLine">a line that stayed with you…</p>
-          <ul class="details" style="list-style:none; padding:0; border-top:1px solid #eee; margin-top:10px; padding-top:10px; font-size:0.85rem;">
+          <ul class="details" style="list-style:none; padding:0; border-top:1px dashed #ccc; margin-top:10px; padding-top:10px;">
             <li id="pOst"><strong>Favorite OST:</strong> —</li>
             <li id="pRemind"><strong>Reminds me of:</strong> —</li>
           </ul>
@@ -87,7 +73,7 @@
   </section>
 </main>
 
-<!-- 引入 Supabase -->
+<!-- 先引入 Supabase，再引入 script.js -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
 </body>
