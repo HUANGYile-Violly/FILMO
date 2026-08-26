@@ -12,7 +12,6 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
 </head>
 
 <body>
@@ -27,18 +26,19 @@
 </header>
 
 <main>
-  <!-- EXPLORE -->
+  <!-- EXPLORE 页面：这里是展示云端数据的地方 -->
   <section id="explore" class="tab-content active">
-    <div class="card-grid" id="cardGrid"></div>
+    <div class="card-grid" id="cardGrid">
+        <!-- 这里会被 JS 动态填入 Supabase 的卡片 -->
+    </div>
   </section>
 
-  <!-- ADD ONE -->
+  <!-- ADD ONE 页面 -->
   <section id="add" class="tab-content">
     <div class="add-layout">
 
       <form class="movie-form">
         <h2>Collect ur Filmo</h2>
-
         <input id="filmName" placeholder="a movie you’re thinking of…" />
         <input id="watchCount" type="number" placeholder="how many times?" />
 
@@ -65,10 +65,9 @@
         <button type="button" id="addCard">add to explore</button>
       </form>
 
-      <!-- LIVE PREVIEW -->
+      <!-- LIVE PREVIEW 预览部分 -->
       <div class="preview-wrapper">
         <h2>Live Preview</h2>
-
         <div class="film-card preview">
           <h3 class="film-title" id="pFilm">Film Name</h3>
           <div class="meta">
@@ -87,8 +86,9 @@
   </section>
 </main>
 
-<!-- JS -->
+<!-- 引入 Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- 引入你的 JS -->
 <script src="script.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
