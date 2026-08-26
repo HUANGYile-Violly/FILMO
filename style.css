@@ -1,8 +1,8 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; background: #fafafa; color: #222; }
 
+/* HEADER */
 header { text-align: center; padding: 40px 20px 10px; }
-/* 强制 Pacifico 字体 */
 h1 { font-family: 'Pacifico', cursive !important; font-size: 3.5rem; margin-bottom: 5px; }
 .tagline { opacity: 0.7; margin-top: 1px; }
 
@@ -27,9 +27,9 @@ main { padding: 40px 6vw; }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
 .film-card { background: #fff; padding: 22px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: left; }
 .card-header-info { font-size: 0.7rem; color: #bbb; margin-bottom: 10px; }
-.card-header-info .sep { margin: 0 5px; color: #eee; } /* 分隔符样式 */
-.film-title { font-family: 'Mogra', system-ui; margin-bottom: 8px; }
+.card-header-info .sep { margin: 0 5px; color: #eee; font-weight: 300; } 
 
+.film-title { font-family: 'Mogra', system-ui; margin-bottom: 8px; }
 .meta { display: flex; justify-content: space-between; align-items: center; }
 .mood-emoji { font-size: 1.4rem !important; }
 
@@ -49,5 +49,23 @@ main { padding: 40px 6vw; }
 }
 #addCard { padding: 12px; border: none; border-radius: 10px; cursor: pointer; background: #000; color: #fff; font-weight: 800; }
 .save-btn { background: none; border: 1px solid #eee; color: #ccc; font-size: 10px; padding: 4px 8px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-.like-btn { cursor: pointer; background: none; border: none; color: #ddd; }
-.like-btn.liked { color: #e74c3c; }
+
+/* 点赞按钮及动画 */
+.like-btn { 
+    cursor: pointer; 
+    background: none; 
+    border: none; 
+    color: #ddd; 
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.like-btn:active { transform: scale(1.4); }
+.like-btn.liked { color: #e74c3c; animation: heartBeat 0.4s linear; }
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
