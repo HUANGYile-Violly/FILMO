@@ -1,112 +1,123 @@
-// 1. Supabase 配置
+// 1. 配置 Supabase (使用你提供的 Key)
 const SUPABASE_URL = 'https://rjeopfnfuwnzxlcklfne.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_QvXjWNuroCn5AXGuIv86CQ_i9UraSnh'; 
+const SUPABASE_KEY = 'sb_publishable_QvXjWNuroCn5AXGuIv86CQ_i9UraSnh';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 2. 页面启动逻辑
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("Movie Mood 启动中...");
+// 2. 获取所有的 DOM 元素 (这是防止点不动的关键！)
+const filmName = document.getElementById('filmName');
+const watchCount = document.getElementById('watchCount');
+const emoji = document.getElementById('emoji');
+const favoriteLine = document.getElementById('favoriteLine');
+const lineFont = document.getElementById('lineFont');
+const ost = document.getElementById('ost');
+const remind = document.getElementById('remind');
+const addCardBtn = document.getElementById('addCard');
+const cardGrid = document.getElementById('cardGrid');
 
-  // --- TAB 切换 ---
-  const tabs = document.querySelectorAll('.tab');
-  const contents = document.querySelectorAll('.tab-content');
+const pFilm = document.getElementById('pFilm');
+const pCount = document.getElementById('pCount');
+const pEmoji = document.getElementById('pEmoji');
+const pLine = document.getElementById('pLine');
+const pOst = document.getElementById('pOst');
+const pRemind = document.getElementById('pRemind');
 
-  tabs.forEach(tab => {
-    tab.onclick = () => {
-      const targetId = tab.getAttribute('data-tab');
-      console.log("切换到:", targetId);
+// ========================================
+// TAB 切换逻辑
+// ========================================
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-      // 切换按钮状态
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // 切换内容显示
-      contents.forEach(content => {
-        content.classList.remove('active');
-        if (content.id === targetId) {
-          content.classList.add('active');
-        }
-      });
-    };
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
   });
-
-  // --- 实时预览 ---
-  const inputs = ['filmName', 'watchCount', 'emoji', 'favoriteLine', 'lineFont', 'ost', 'remind'];
-  inputs.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.oninput = () => {
-        document.getElementById('pFilm').innerText = document.getElementById('filmName').value || 'Film Name';
-        document.getElementById('pCount').innerText = `🎬 Watch Count: ${document.getElementById('watchCount').value || 0}`;
-        document.getElementById('pEmoji').innerText = document.getElementById('emoji').value;
-        document.getElementById('pLine').innerText = document.getElementById('favoriteLine').value || 'a line that stayed with you…';
-        document.getElementById('pLine').className = `line ${document.getElementById('lineFont').value}`;
-        document.getElementById('pOst').innerHTML = `<strong>Favorite OST:</strong> ${document.getElementById('ost').value || '—'}`;
-        document.getElementById('pRemind').innerHTML = `<strong>Reminds me of:</strong> ${document.getElementById('remind').value || '—'}`;
-      };
-    }
-  });
-
-  // --- 初始化加载数据 ---
-  loadFilms();
 });
 
-// 3. 加载电影函数
+// ========================================
+// LIVE PREVIEW 实时预览
+// ========================================
+filmName.oninput = e => pFilm.innerText = e.target.value || 'Film Name';
+watchCount.oninput = e => pCount.innerText = `🎬 Watch Count: ${e.target.value || 0}`;
+emoji.oninput = e => pEmoji.innerText = e.target.value;
+favoriteLine.oninput = e => pLine.innerText = e.target.value || 'a line that stayed with you…';
+lineFont.oninput = e => pLine.className = `line ${e.target.value}`;
+ost.oninput = e => pOst.innerHTML = `<strong>Favorite OST:</strong> ${e.target.value || '—'}`;
+remind.oninput = e => pRemind.innerHTML = `<strong>Reminds me of:</strong> ${e.target.value || '—'}`;
+
+// ========================================
+// 渲染卡片的函数 (统一调用)
+// ========================================
+function renderCard(film) {
+  const card = document.createElement('div');
+  card.className = 'film-card';
+  card.innerHTML = `
+    <h3 class="film-title">${film.title}</h3>
+    <div class="meta">
+      <span>🎬 ${film.watch_count || 0}</span>
+      <span>${film.mood || '🙂'}</span>
+    </div>
+    <p class="line ${film.font || 'leckerli'}">${film.quote || ''}</p>
+    <ul class="details" style="list-style:none; padding:0; border-top:1px dashed #ccc; margin-top:10px; padding-top:10px;">
+      <li><strong>Favorite OST:</strong> ${film.ost || '—'}</li>
+      <li><strong>Reminds me of:</strong> ${film.reminds_me_of || '—'}</li>
+    </ul>
+  `;
+  cardGrid.prepend(card);
+}
+
+// ========================================
+// 加载数据 (从 Supabase 读取)
+// ========================================
 async function loadFilms() {
-  const cardGrid = document.getElementById('cardGrid');
-  const { data, error } = await supabase.from('Films').select('*').order('id', { ascending: false });
+  const { data, error } = await supabase
+    .from('Films')
+    .select('*')
+    .order('id', { ascending: false });
 
   if (error) {
     console.error("加载失败:", error);
     return;
   }
-
-  cardGrid.innerHTML = ''; 
-  data.forEach(film => {
-    const card = document.createElement('div');
-    card.className = 'film-card';
-    card.innerHTML = `
-      <h3 class="film-title">${film.title}</h3>
-      <div class="meta">
-        <span>🎬 ${film.watch_count || 0}</span>
-        <span>${film.mood || '🙂'}</span>
-      </div>
-      <p class="line ${film.font || 'leckerli'}">${film.quote || ''}</p>
-      <ul class="details" style="list-style:none; padding:0; border-top:1px solid #eee; margin-top:10px; padding-top:10px; font-size:0.85rem;">
-        <li><strong>Favorite OST:</strong> ${film.ost || '—'}</li>
-        <li><strong>Reminds me of:</strong> ${film.reminds_me_of || '—'}</li>
-      </ul>
-    `;
-    cardGrid.appendChild(card);
-  });
+  
+  cardGrid.innerHTML = ''; // 清空加载提示
+  data.forEach(film => renderCard(film));
 }
 
-// 4. 保存电影函数
-document.getElementById('addCard').onclick = async () => {
-  const name = document.getElementById('filmName').value;
-  if (!name) {
-    alert("写个电影名吧！");
-    return;
-  }
+// ========================================
+// 添加数据 (保存到 Supabase)
+// ========================================
+addCardBtn.onclick = async () => {
+  if (!filmName.value) return;
 
-  const filmData = {
-    title: name,
-    watch_count: Number(document.getElementById('watchCount').value) || 0,
-    mood: document.getElementById('emoji').value,
-    quote: document.getElementById('favoriteLine').value,
-    font: document.getElementById('lineFont').value,
-    ost: document.getElementById('ost').value || '—',
-    reminds_me_of: document.getElementById('remind').value || '—'
+  const newFilm = {
+    title: filmName.value,
+    watch_count: Number(watchCount.value) || 0,
+    mood: emoji.value,
+    quote: favoriteLine.value,
+    font: lineFont.value,
+    ost: ost.value || '—',
+    reminds_me_of: remind.value || '—'
   };
 
-  const { error } = await supabase.from('Films').insert([filmData]);
+  // 1. 发送到云端
+  const { data, error } = await supabase
+    .from('Films')
+    .insert([newFilm])
+    .select();
 
   if (error) {
-    alert("保存出错了: " + error.message);
+    alert("保存失败: " + error.message);
   } else {
-    alert("保存成功！✨");
+    // 2. 成功后在本地渲染
+    renderCard(data[0]);
+    // 3. 重置表单
     document.getElementById('movieForm').reset();
-    loadFilms(); // 重新加载列表
-    document.querySelector('[data-tab="explore"]').click(); // 自动跳转回列表页
+    // 4. 重置预览
+    pFilm.innerText = 'Film Name';
+    alert("Saved to cloud! ✨");
   }
 };
+
+// 启动页面加载数据
+loadFilms();
