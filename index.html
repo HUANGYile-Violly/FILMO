@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <title>Movie Mood</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
-  <!-- 直接引用，不要加 / 或文件夹名 -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,23 +23,20 @@
   <!-- EXPLORE SECTION -->
   <section id="explore" class="tab-content active">
     <div class="card-grid" id="cardGrid">
-      <p style="text-align:center; padding:50px; color:#999;">Loading cloud cards...</p>
+      <p id="loadingText" style="text-align:center; padding:50px; color:#999; grid-column: 1/-1;">Loading your memories...</p>
     </div>
   </section>
 
   <!-- ADD SECTION -->
   <section id="add" class="tab-content">
     <div class="add-layout">
+      <!-- FORM -->
       <form class="movie-form" id="movieForm">
         <h2>Collect ur Filmo</h2>
         <input id="filmName" type="text" placeholder="a movie you’re thinking of…" />
         <input id="watchCount" type="number" placeholder="how many times?" />
         <select id="emoji">
-          <option>🙂</option><option>😀</option><option>😌</option>
-          <option>🥹</option><option>🥲</option><option>😭</option>
-          <option>😔</option><option>😐</option><option>😶</option>
-          <option>🙃</option><option>😵‍💫</option><option>🤍</option>
-          <option>💛</option><option>🖤</option><option>✨</option>
+          <option>🙂</option><option>😀</option><option>😌</option><option>🥹</option><option>🥲</option><option>😭</option><option>😔</option><option>😐</option><option>😶</option><option>🙃</option><option>😵‍💫</option><option>🤍</option><option>💛</option><option>🖤</option><option>✨</option>
         </select>
         <textarea id="favoriteLine" placeholder="a line that stayed with you…"></textarea>
         <select id="lineFont">
@@ -74,9 +70,9 @@
   </section>
 </main>
 
-<!-- Supabase SDK -->
+<!-- Supabase SDK 先加载 -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- 你的 JS -->
+<!-- 你的脚本后加载 -->
 <script src="script.js"></script>
 </body>
 </html>
