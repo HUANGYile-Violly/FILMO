@@ -1,91 +1,56 @@
-<form class="movie-form">
-  <h2>Collect ur Filmo</h2>
+<div class="container"> <!-- 如果你最外层有别的 class 名，可以把 container 改掉 -->
 
-  <input id="filmName" placeholder="a movie you’re thinking of…" />
-  <input id="watchCount" type="number" placeholder="how many times?" />
+  <form class="movie-form">
+    <h2>Collect ur Filmo</h2>
 
-  <select id="emoji">
-    <option>🙂</option>
-    <option>😀</option>
-    <option>😌</option>
-    <option>🥹</option>
-    <option>🥲</option>
-    <option>😭</option>
-    <option>😔</option>
-    <option>😐</option>
-    <option>😶</option>
-    <option>🙃</option>
-    <option>😵‍💫</option>
-    <option>🤍</option>
-    <option>💛</option>
-    <option>🖤</option>
-    <option>✨</option>
-  </select>
+    <input id="filmName" placeholder="a movie you’re thinking of…" />
+    <input id="watchCount" type="number" placeholder="how many times?" />
 
-  <textarea
-    id="favoriteLine"
-    placeholder="a line that stayed with you…"
-  ></textarea>
+    <select id="emoji">
+      <option>🙂</option><option>😀</option><option>😌</option>
+      <option>🥹</option><option>🥲</option><option>😭</option>
+      <option>😔</option><option>😐</option><option>😶</option>
+      <option>🙃</option><option>😵‍💫</option><option>🤍</option>
+      <option>💛</option><option>🖤</option><option>✨</option>
+    </select>
 
-  <select id="lineFont">
-    <option value="leckerli">Leckerli One</option>
-    <option value="pacifico">Pacifico</option>
-    <option value="ubuntu">Ubuntu Sans</option>
-    <option value="montserrat">Montserrat</option>
-  </select>
+    <textarea id="favoriteLine" placeholder="a line that stayed with you…"></textarea>
 
-  <input id="ost" placeholder="a song from the film…" />
-  <input id="remind" placeholder="it reminds you of…" />
+    <select id="lineFont">
+      <option value="leckerli">Leckerli One</option>
+      <option value="pacifico">Pacifico</option>
+      <option value="ubuntu">Ubuntu Sans</option>
+      <option value="montserrat">Montserrat</option>
+    </select>
 
-  <button type="button" id="addCard">add to explore</button>
-</form>
+    <input id="ost" placeholder="a song from the film…" />
+    <input id="remind" placeholder="it reminds you of…" />
 
+    <button type="button" id="addCard">add to explore</button>
+  </form>
 
-<!-- LIVE PREVIEW -->
-<div class="preview-wrapper">
-  <h2>Live Preview</h2>
+  <!-- LIVE PREVIEW -->
+  <div class="preview-wrapper">
+    <h2>Live Preview</h2>
 
-  <div class="film-card preview">
-
-    <h3 class="film-title" id="pFilm">
-      Film Name
-    </h3>
-
-    <div class="meta">
-      <span id="pCount">
-        🎬 Watch Count: 0
-      </span>
-
-      <span id="pEmoji">
-        🙂
-      </span>
+    <div class="film-card preview">
+      <h3 class="film-title" id="pFilm">Film Name</h3>
+      <div class="meta">
+        <span id="pCount">🎬 Watch Count: 0</span>
+        <span id="pEmoji">🙂</span>
+      </div>
+      <p class="line leckerli" id="pLine">a line that stayed with you…</p>
+      <ul class="details">
+        <li id="pOst"><strong>Favorite OST:</strong> —</li>
+        <li id="pRemind"><strong>Reminds me of:</strong> —</li>
+      </ul>
     </div>
-
-    <p class="line leckerli" id="pLine">
-      a line that stayed with you…
-    </p>
-
-    <ul class="details">
-
-      <li id="pOst">
-        <strong>Favorite OST:</strong> —
-      </li>
-
-      <li id="pRemind">
-        <strong>Reminds me of:</strong> —
-      </li>
-
-    </ul>
-
   </div>
-</div>
 
+</div> <!-- 💡就是这里！帮你把漏掉的闭合标签补回来了 -->
 
-<!-- ========================================
-     SUPABASE
-     ======================================== -->
-
+<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- FILMO JavaScript -->
+<!-- FILMO -->
 <script src="script.js"></script>
