@@ -10,7 +10,22 @@ const ICON_HEART = String.fromCodePoint(0x2764);
 const ICON_SAVE = String.fromCodePoint(0x1F4E5);
 
 const emojiCodes = [0x1F642, 0x1F600, 0x1F60C, 0x1F979, 0x1F972, 0x1F62D, 0x1F614, 0x1F610, 0x1F636, 0x1F643, 0x1F635, 0x1F90D, 0x1F49B, 0x1F5A4, 0x2728];
-const emojiSelect = document.getElementById('emoji');
+const emojiCodes = [
+    0x1F642, 0x1F600, 0x1F60C, 0x1F979, 0x1F972, 0x1F62D, 0x1F614, 0x1F610,
+    0x1F636, 0x1F643, 0x1F635, 0x1F90D, 0x1F49B, 0x1F5A4, 0x2728,
+    0x1F921, // 🤡 小丑
+    0x1F386, // 🎆 烟花
+    0x1F389, // 🎉 庆祝彩炮
+    0x1F64C, // 🙌 欢呼举手
+    0x1F984, // 🦄 独角兽
+    0x1F47B, // 👻 鬼脸
+    0x1F480, // 💀 骷髅
+    0x1F9D9, // 🧙 女巫/巫师
+    0x1F383, // 🎃 南瓜灯
+    0x1F47D, // 👽 外星人
+    0x1F916, // 🤖 机器人
+];
+    const emojiSelect = document.getElementById('emoji');
 if (emojiSelect) {
     emojiSelect.innerHTML = '';
     emojiCodes.forEach(code => {
