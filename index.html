@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Movie Mood - FILMO</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Ubuntu+Sans:wght@300;400;800&family=Montserrat:wght@300;400;600&family=Mogra&family=Leckerli+One&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -46,10 +43,7 @@
         <input id="userName" placeholder="who are you? (nickname)" />
         <input id="filmName" placeholder="a movie you're thinking of..." />
         <input id="watchCount" type="number" placeholder="how many times?" />
-        
-        <!-- 这里留空，JS 会自动注入 Emoji -->
         <select id="emoji"></select>
-
         <textarea id="favoriteLine" placeholder="a line that stayed with you..."></textarea>
         <select id="lineFont">
           <option value="leckerli">Leckerli One</option>
@@ -57,7 +51,6 @@
           <option value="ubuntu">Ubuntu Sans</option>
           <option value="montserrat">Montserrat</option>
         </select>
-
         <input id="ost" placeholder="a song from the film..." />
         <input id="thoughts" placeholder="your thoughts about this film..." />
         <button type="button" id="addCard">add to explore</button>
